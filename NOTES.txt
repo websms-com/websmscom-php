@@ -1,0 +1,10 @@
+/	root = Development directory
+/src	Sources that will be copied in zip/archive 
+/dist	released zip archives
+
+
+At this point of time, you have to build everything by yourself.
+
+0.) make sure no devolpment files, development credentials or addresses are in /src
+1.) Set all version information in INSTALL or README files
+3.) zip /src/* to /dist/PHP_SMS_Toolkit_<major>.<minor>.<patch>.zip

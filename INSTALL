@@ -1,0 +1,19 @@
+                                
+                                       I N S T A L L
+
+   Requirements
+  ------------
+
+  The following requirements exist for running the PHP Toolkit:
+
+   o  PHP Version 5.0.3 or higher
+       
+
+  Installation Instructions
+  -------------------------
+
+  Include  WebsmsCom_Toolkit.inc into your PHP File in order to access the classes and 
+  methods for sending text and binary SMS.
+  
+  For PHP versions lower than 5.2.0 please make sure that JSON.phps is in the same directory as 
+  WebsmsCom_Toolkit.inc or install Services_JSON from PEAR.
