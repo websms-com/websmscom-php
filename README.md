@@ -9,8 +9,39 @@
   A lightweight PHP-client-library for using websms.com SMS services.
   Reduces the complexity of network-communication between client and SMS gateway, 
   to help business-customer save time and money for focusing on their business logic.
+  
+  Installation
+  -------------------------
 
-  The Latest Version
+  Include  [WebSmsCom_Toolkit.inc](WebsmsCom_Toolkit.inc) into your PHP File in order to access the classes and methods for sending text and binary SMS.
+  
+       // will need JSON.phps (Service_JSON) for PHP<5.2.0
+       include "WebSmsCom_Toolkit.inc";`
+  
+  For PHP versions lower than 5.2.0 please make sure that JSON.phps is in the same directory as WebsmsCom_Toolkit.inc or install Services_JSON from PEAR.
+  
+  Example
+  -------
+  
+  See [send_sms.php](send_sms.php) on how to send messages
+  
+  1. Create sms client (once)
+  
+     `$smsClient = new WebSmsCom_Client($username, $pass, $gateway_url);`
+  2. Create message
+  
+     `$message  = new WebSmsCom_TextMessage($recipientAddressList, $utf8_message_text);`
+  3. Send message
+  
+     `$Response = $smsClient->send($message, $maxSmsPerMessage, $test);`
+    
+
+  Documentation
+  -------------
+  The documentation available as of the date of this release is included 
+  in [send_sms.php](send_sms.php) and [WebSmsCom_Toolkit.inc](WebsmsCom_Toolkit.inc).
+
+  Changelog
   ------------------
   
    * Version 1.0.3: Fixed setter setHttpClient and setSenderAddressType
@@ -19,12 +50,6 @@
    * Version 1.0.1: Fixed setter setMessageContent() 
    * Version 1.0.0: Basic text- and binary-sms-sending.
 
-
-  Documentation
-  -------------
-  The documentation available as of the date of this release is included 
-  in send_sms.php and WebsmsCom_Toolkit.inc.
-  
   Contact
   -------
   For any further questions into detail the contact-email is developer@websms.com
