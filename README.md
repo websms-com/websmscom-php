@@ -13,12 +13,12 @@
   Installation
   -------------------------
 
-  Include  [WebSmsCom_Toolkit.inc](WebsmsCom_Toolkit.inc) into your PHP File in order to access the classes and methods for sending text and binary SMS.
+  Include  [WebSmsCom_Toolkit.inc](WebSmsCom_Toolkit.inc) into your PHP File in order to access the classes and methods for sending text and binary SMS.
   
        // will need JSON.phps (Service_JSON) for PHP<5.2.0
        include "WebSmsCom_Toolkit.inc";`
   
-  For PHP versions lower than 5.2.0 please make sure that JSON.phps is in the same directory as WebsmsCom_Toolkit.inc or install Services_JSON from PEAR.
+  For PHP versions lower than 5.2.0 please make sure that JSON.phps is in the same directory as WebSmsCom_Toolkit.inc or install Services_JSON from PEAR.
   
   Example
   -------
@@ -39,7 +39,7 @@
   Documentation
   -------------
   The documentation available as of the date of this release is included 
-  in [send_sms.php](send_sms.php) and [WebSmsCom_Toolkit.inc](WebsmsCom_Toolkit.inc).
+  in [send_sms.php](send_sms.php) and [WebSmsCom_Toolkit.inc](WebSmsCom_Toolkit.inc).
 
   Changelog
   ------------------
