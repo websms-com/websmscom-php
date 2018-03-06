@@ -41,6 +41,18 @@
   The documentation available as of the date of this release is included 
   in [send_sms.php](send_sms.php) and [WebSmsCom_Toolkit.inc](WebSmsCom_Toolkit.inc).
 
+  FAQ
+  -------------
+  __*Question:* Why do I get a CURLOPT_SSL_VERIFYHOST error?__
+  
+     `curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead` 
+     
+  __*Answer:* Just set $smsClient->setSslVerifyHost(2)__
+  
+       // 1.) -- create sms client (once) ------
+       $smsClient = new WebSmsCom_Client($username, $pass, $gateway_url);
+       $smsClient->setSslVerifyHost(2);
+
   Changelog
   ------------------
   
