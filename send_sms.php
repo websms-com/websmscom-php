@@ -23,6 +23,7 @@
     // 1.) -- create sms client (once) ------
     $smsClient = new WebSmsCom_Client($username, $pass, $gateway_url);
     //$smsClient->setVerbose(true);
+    //$smsClient->setSslVerifyHost(2); // needed if CURLOPT_SSL_VERIFYHOST no longer accepts the value 1
 
     // 2.) -- create text message ----------------
     $message  = new WebSmsCom_TextMessage($recipientAddressList, $utf8_message_text);
