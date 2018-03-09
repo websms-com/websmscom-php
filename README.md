@@ -56,6 +56,7 @@
   Changelog
   ------------------
   
+   * Version 1.0.4: Throws WebSmsCom_ParameterValidationException on json_encode() errors to prevent body being 'null' or 'false'. Before this change an empty content body resulted in an API exception with status code 4120 
    * Version 1.0.3: Fixed setter setHttpClient and setSenderAddressType
    * Version 1.0.2: Fixed error where long message content could not be sent 
                     because some curl/php versions set "Expect:" HTTP Header.
