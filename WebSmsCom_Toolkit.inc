@@ -27,10 +27,57 @@ class WebSmsCom_JsonWrapper {
             }
         }
     }
+    
+    function checkEncodingError($json) {
+        if (!is_null($json) && $json != false) {
+            return $json;
+        }
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+            // json_last_error supported
+            $last_error = json_last_error();
+            switch ($last_error) {
+                case JSON_ERROR_NONE:
+                    break;
+                case JSON_ERROR_DEPTH:
+                    throw new WebSmsCom_ParameterValidationException("JSON Error: The maximum stack depth has been exceeded.", $last_error);
+                case JSON_ERROR_STATE_MISMATCH:
+                    throw new WebSmsCom_ParameterValidationException("JSON Error: Invalid or malformed JSON", $last_error);
+                case JSON_ERROR_CTRL_CHAR:
+                    throw new WebSmsCom_ParameterValidationException("JSON Error: Control character error, possibly incorrectly encoded", $last_error);
+                case JSON_ERROR_SYNTAX:
+                    throw new WebSmsCom_ParameterValidationException("JSON Error: Syntax error", $last_error);
+                // php 5.3.3
+                case JSON_ERROR_UTF8:
+                    throw new WebSmsCom_ParameterValidationException("JSON Error: Malformed UTF-8 characters, possibly incorrectly encoded", $last_error);
+                // PHP 5.5.0
+                case JSON_ERROR_RECURSION:
+                    // One or more recursive references in the value to be encoded
+                    throw new WebSmsCom_ParameterValidationException(" JSON Error: ". json_last_error_msg(), $last_error);
+                case JSON_ERROR_INF_OR_NAN:
+                    // One or more NAN or INF values in the value to be encoded
+                    throw new WebSmsCom_ParameterValidationException(" JSON Error: ". json_last_error_msg(), $last_error);
+                case JSON_ERROR_UNSUPPORTED_TYPE:
+                    // A value of a type that cannot be encoded was given
+                    throw new WebSmsCom_ParameterValidationException(" JSON Error: ". json_last_error_msg(), $last_error);
+                // PHP 7.0.0
+                case JSON_ERROR_INVALID_PROPERTY_NAME:
+                    //  A property name that cannot be encoded was given
+                    throw new WebSmsCom_ParameterValidationException(" JSON Error: ". json_last_error_msg(), $last_error);
+                case JSON_ERROR_UTF16:
+                    // Malformed UTF-16 characters, possibly incorrectly encoded
+                    throw new WebSmsCom_ParameterValidationException(" JSON Error: ". json_last_error_msg(), $last_error);
+                default:
+                    throw new WebSmsCom_ParameterValidationException("JSON Error: Unknown JSON encoding/decoding error", $last_error);
+            }
+        } else {
+            throw new WebSmsCom_ParameterValidationException("JSON Error: Unknown JSON encoding/decoding error");
+        }
+    }
+
     function encode($php_array) {
         return (!is_null($this->json_service)) 
                 ? $this->json_service->encode($php_array) 
-                : json_encode($php_array); // php >= 5.2.0
+                : $this->checkEncodingError(json_encode($php_array)); // php >= 5.2.0
     }
     function decode($json) {
         return (!is_null($this->json_service)) 
@@ -48,7 +95,7 @@ class WebSmsCom_JsonWrapper {
 // @author Gerd Reifenauer
 //-----------------------------------------------------------------
 class WebSmsCom_Client {
-    private $VERSION              = "1.0.2";
+    private $VERSION              = "1.0.4";
     private $REQUIRED_PHP_VERSION = "5.0.3"; # PHP>=5.0.3
     
     private $username;
