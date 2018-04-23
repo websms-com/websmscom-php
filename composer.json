@@ -1,0 +1,20 @@
+{
+    "name": "websms-com/websmscom-php",
+    "description": "A lightweight PHP-client-library for using websms.com SMS services.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gerd Reifenauer",
+            "email": "gerd.reifenauer@websms.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.2"
+    },
+    "autoload": {
+        "classmap": [
+            "WebSmsCom_Toolkit.inc"
+        ]
+    }
+}
