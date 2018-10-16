@@ -20,6 +20,11 @@
   
   For PHP versions lower than 5.2.0 please make sure that JSON.phps is in the same directory as WebSmsCom_Toolkit.inc or install Services_JSON from PEAR.
   
+  __*or install with Composer*__
+  
+       composer require websms-com/websmscom-php
+  
+  
   Example
   -------
   
@@ -56,6 +61,7 @@
   Changelog
   ------------------
   
+   * Version 1.0.5: Composer / Packagist support
    * Version 1.0.4: Throws WebSmsCom_ParameterValidationException on json_encode() errors to prevent body being 'null' or 'false'. Before this change an empty content body resulted in an API exception with status code 4120 
    * Version 1.0.3: Fixed setter setHttpClient and setSenderAddressType
    * Version 1.0.2: Fixed error where long message content could not be sent 
