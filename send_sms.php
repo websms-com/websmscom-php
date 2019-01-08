@@ -10,6 +10,8 @@
   # Modify these values to your needs
   $username             = 'your_username';
   $pass                 = 'your_password';
+  // OR (optional)
+  $accessToken          = 'your_access_token';
   $gateway_url          = 'https://api.websms.com/';
   
   $recipientAddressList = array("4367612345678");
@@ -22,6 +24,8 @@
     
     // 1.) -- create sms client (once) ------
     $smsClient = new WebSmsCom_Client($username, $pass, $gateway_url);
+    // alternatively authenticate over access token
+    // $smsClient = new WebSmsCom_Client($accessToken, '', $gateway_url, WebSmsAuthenticationMode::ACCESS_TOKEN);
     //$smsClient->setVerbose(true);
     //$smsClient->setSslVerifyHost(2); // needed if CURLOPT_SSL_VERIFYHOST no longer accepts the value 1
 
