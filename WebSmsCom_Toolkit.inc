@@ -10,6 +10,14 @@ if (version_compare(PHP_VERSION, '5.2.0') < 0) {
       require_once('JSON.phps'); // JSON service for JsonWrapper.
     }
 }
+//-----------------------------------------------------------------
+// sms.at Gateway Authentication mode Enum
+//-----------------------------------------------------------------
+abstract class WebSmsAuthenticationMode
+{
+    const USER_PW = 0;
+    const ACCESS_TOKEN = 1;
+}
 
 class WebSmsCom_JsonWrapper {
     //------------------------------------------------------------
@@ -99,6 +107,8 @@ class WebSmsCom_Client {
     private $REQUIRED_PHP_VERSION = "5.0.3"; # PHP>=5.0.3
     
     private $username;
+    private $accessToken;
+    private $mode;
     private $pass;
     private $url;
     private $path;
@@ -120,20 +130,29 @@ class WebSmsCom_Client {
     
     
     //@throws Exception   
-    function __construct($user, $pass, $url) {
+    function __construct($userOrAccessToken, $pass = null, $url, int $mode = WebSmsAuthenticationMode::USER_PW) {
         $this->initUrl($url);
         
-        if ((strlen($this->host) < 4) || !$user || !$pass) {
+        if ((strlen($this->host) < 4)) {
+          if($mode === WebSmsAuthenticationMode::USER_PW && (!$userOrAccessToken || !$pass) || $mode === WebSmsAuthenticationMode::ACCESS_TOKEN && !$userOrAccessToken)
+          {
             throw new WebSmsCom_ParameterValidationException("Invalid call of sms.at gateway class. Check arguments.");
+          }
         }
         if (!$this->port) {
             throw new WebSmsCom_ParameterValidationException("Invalid url when calling sms.at gateway class. Missing Port.");
         }
         
         $this->json = new WebSmsCom_JsonWrapper();
-        
-        $this->username = $user;
-        $this->pass     = $pass;
+        $this->mode = $mode;
+
+        // username & password authentication
+        if ($this->mode === WebSmsAuthenticationMode::USER_PW) {
+            $this->username = $userOrAccessToken;
+            $this->pass     = $pass;
+        } else { // access token authentication
+          $this->accessToken = $userOrAccessToken;
+        }
         
     }
     
@@ -236,6 +255,10 @@ class WebSmsCom_Client {
             'Content-Type: ' . $this->contentType,
             'Expect:'
         );
+        // add access token in header
+        if ($this->mode === WebSmsAuthenticationMode::ACCESS_TOKEN) {
+            $request_data['http_header'][] = 'Authorization: Bearer ' . $this->accessToken;
+        }
         
         $json_data = $message->getJsonData();
         
@@ -293,7 +316,9 @@ class WebSmsCom_Client {
         $curlHandle = curl_init($request_data['url']);
         
         curl_setopt($curlHandle,CURLOPT_HTTPAUTH      , CURLAUTH_BASIC);
-        curl_setopt($curlHandle,CURLOPT_USERPWD       , $this->username . ":" . $this->pass);
+        if ($this->mode === WebSmsAuthenticationMode::USER_PW) {
+            curl_setopt($curlHandle, CURLOPT_USERPWD, $this->username . ":" . $this->pass);
+        }
         curl_setopt($curlHandle,CURLOPT_HTTPHEADER    , $request_data['http_header']);
             
         curl_setopt($curlHandle,CURLOPT_POST          , true);
@@ -359,7 +384,9 @@ class WebSmsCom_Client {
         if (is_resource($fsh)) {
             $header = "";
             $header .= "POST " . $request_data['endpoint_path'] . " HTTP/1.0\r\n";
-            $header .= "Authorization: Basic " . base64_encode($this->username . ":" . $this->pass) . "\r\n";
+            if ($this->mode === WebSmsAuthenticationMode::USER_PW) {
+                $header .= "Authorization: Basic " . base64_encode($this->username . ":" . $this->pass) . "\r\n";
+            }
             $header .= "Host: " . $this->host . "\r\n";
             $header .= implode("\r\n", $request_data['http_header']) . "\r\n";
             $header .= "Content-Length: " . strlen($request_data['content']) . "\r\n";
