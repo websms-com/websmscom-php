@@ -24,8 +24,10 @@
     
     // 1.) -- create sms client (once) ------
     $smsClient = new WebSmsCom_Client($username, $pass, $gateway_url);
-    // alternatively authenticate over access token
-    // $smsClient = new WebSmsCom_Client($accessToken, '', $gateway_url, WebSmsAuthenticationMode::ACCESS_TOKEN);
+    
+    // 1.) -- Alternatively authenticate over access token
+    // $smsClient = new WebSmsCom_Client($accessToken, '', $gateway_url, WebSmsCom_AuthenticationMode::ACCESS_TOKEN);
+    
     //$smsClient->setVerbose(true);
     //$smsClient->setSslVerifyHost(2); // needed if CURLOPT_SSL_VERIFYHOST no longer accepts the value 1
 

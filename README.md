@@ -61,6 +61,7 @@
   Changelog
   ------------------
   
+   * Version 1.0.6: Access token support
    * Version 1.0.5: Composer / Packagist support
    * Version 1.0.4: Throws WebSmsCom_ParameterValidationException on json_encode() errors to prevent body being 'null' or 'false'. Before this change an empty content body resulted in an API exception with status code 4120 
    * Version 1.0.3: Fixed setter setHttpClient and setSenderAddressType
