@@ -279,7 +279,12 @@ class WebSmsCom_Client {
             if (!isset($response_data['http_status']) || $response_data['http_status'] < 1) {
                 throw new WebSmsCom_HttpConnectionException("Couldn't connect to remote server");
             } elseif ($response_data['http_status'] == 401) {
-                throw new WebSmsCom_AuthorizationFailedException("Basic Authentication failed. Check given username and password. (Account has to be active)");
+                if ($this->mode === WebSmsAuthenticationMode::ACCESS_TOKEN) {
+                    throw new WebSmsCom_AuthorizationFailedException("Authentication failed. Invalid access token.");
+                } else {
+                    throw new WebSmsCom_AuthorizationFailedException("Basic Authentication failed. Check given username and password. (Account has to be active)");
+                }
+                
             } else {
                 throw new WebSmsCom_HttpConnectionException("Response HTTP Status: " . $response_data['http_status'] . "\n" . $response_data['content'], $response_data['http_status']);
             }
