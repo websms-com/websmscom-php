@@ -130,7 +130,7 @@ class WebSmsCom_Client {
     
     
     //@throws Exception   
-    function __construct($userOrAccessToken, $pass = null, $url, int $mode = WebSmsCom_AuthenticationMode::USER_PW) {
+    function __construct($userOrAccessToken, $pass = null, $url, $mode = WebSmsCom_AuthenticationMode::USER_PW) {
         $this->initUrl($url);
         
         if ((strlen($this->host) < 4)) {
