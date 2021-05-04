@@ -61,6 +61,8 @@
   Changelog
   ------------------
   
+   * Version 1.0.8: Tested functionality with PHP 8.0.5, removes deprecated and unnecessary defaultValue for $pass argument in WebSmsCom_Client constructor
+   * Version 1.0.7: Restored compatibility to PHP 5.0.3+ (removes PHP7 style scalar type hinting)
    * Version 1.0.6: Access token support
    * Version 1.0.5: Composer / Packagist support
    * Version 1.0.4: Throws WebSmsCom_ParameterValidationException on json_encode() errors to prevent body being 'null' or 'false'. Before this change an empty content body resulted in an API exception with status code 4120 

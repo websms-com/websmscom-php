@@ -103,7 +103,7 @@ class WebSmsCom_JsonWrapper {
 // @author Gerd Reifenauer
 //-----------------------------------------------------------------
 class WebSmsCom_Client {
-    private $VERSION              = "1.0.4";
+    private $VERSION              = "1.0.8";
     private $REQUIRED_PHP_VERSION = "5.0.3"; # PHP>=5.0.3
     
     private $username;
@@ -130,7 +130,7 @@ class WebSmsCom_Client {
     
     
     //@throws Exception   
-    function __construct($userOrAccessToken, $pass = null, $url, $mode = WebSmsCom_AuthenticationMode::USER_PW) {
+    function __construct($userOrAccessToken, $pass, $url, $mode = WebSmsCom_AuthenticationMode::USER_PW) {
         $this->initUrl($url);
         
         if ((strlen($this->host) < 4)) {
