@@ -29,7 +29,7 @@
     // $smsClient = new WebSmsCom_Client($accessToken, '', $gateway_url, WebSmsCom_AuthenticationMode::ACCESS_TOKEN);
     
     //$smsClient->setVerbose(true);
-    //$smsClient->setSslVerifyHost(2); // needed if CURLOPT_SSL_VERIFYHOST no longer accepts the value 1
+    $smsClient->setSslVerifyHost(2); // needed if CURLOPT_SSL_VERIFYHOST no longer accepts the value 1
 
     // 2.) -- create text message ----------------
     $message  = new WebSmsCom_TextMessage($recipientAddressList, $utf8_message_text);

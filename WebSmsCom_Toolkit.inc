@@ -108,6 +108,7 @@ class WebSmsCom_Client {
     
     private $username;
     private $accessToken;
+    private $json;
     private $mode;
     private $pass;
     private $url;
