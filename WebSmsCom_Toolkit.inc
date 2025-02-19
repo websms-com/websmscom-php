@@ -297,8 +297,8 @@ class WebSmsCom_Client {
             throw new WebSmsCom_UnknownResponseException("Received unknown content type '" . $response_data['content_type'] . "'. Content: " . $response_data['content']);
         }
         
-        if ($parsed_content['statusCode'] < 2000 || $parsed_content['statusCode'] > 2001) {
-            throw new WebSmsCom_ApiException($parsed_content['statusMessage'], $parsed_content['statusCode']);
+        if (!isset($parsed_content['statusCode']) || $parsed_content['statusCode'] < 2000 || $parsed_content['statusCode'] > 2001) {
+            throw new WebSmsCom_ApiException($parsed_content['statusMessage'] ?? 'missing statusMessage', $parsed_content['statusCode'] ?? 0);
         }
         
         $Response = new WebSmsCom_Response($response_data['content'], $parsed_content['statusCode'], $parsed_content['statusMessage'], $parsed_content['transferId'], isset($parsed_content['clientMessageId']) ? $parsed_content['clientMessageId'] : NULL);
