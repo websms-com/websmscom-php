@@ -46,6 +46,7 @@
            "TransferId      : ".$Response->getTransferId(),
            "ClientMessageId : ".(($Response->getClientMessageId()) ? 
                                 $Response->getClientMessageId() : '<NOT SET>'),
+           "SmsCount        : ".$Response->getSmsCount()
     ));
 
   // catch everything that's not a successfully sent message
@@ -362,5 +363,9 @@ function binary_sms_sample($recipientAddressList) {
 //   - returns received TransferId of API Response for successfully sent Message
 //
 //----------------------------------------------------------------
-
+//
+//  getSmsCount()
+//   - returns received SmsCount of API Response for successfully sent Message
+//
+//----------------------------------------------------------------
 ?>

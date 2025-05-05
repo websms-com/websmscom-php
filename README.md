@@ -61,6 +61,7 @@
   Changelog
   ------------------
   
+   * Version 1.0.10: Added SmsCount property to WebSmsCom_Response (thanks to AlexHoebart-ICPDR)
    * Version 1.0.9: Tested functionality with PHP 8.4.3; Fixes missing class property causing deprecation note on dynamic property.
    * Version 1.0.8: Tested functionality with PHP 8.0.5, removes deprecated and unnecessary defaultValue for $pass argument in WebSmsCom_Client constructor
    * Version 1.0.7: Restored compatibility to PHP 5.0.3+ (removes PHP7 style scalar type hinting)
