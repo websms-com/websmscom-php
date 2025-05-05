@@ -301,7 +301,7 @@ class WebSmsCom_Client {
             throw new WebSmsCom_ApiException($parsed_content['statusMessage'], $parsed_content['statusCode']);
         }
         
-        $Response = new WebSmsCom_Response($response_data['content'], $parsed_content['statusCode'], $parsed_content['statusMessage'], $parsed_content['transferId'], isset($parsed_content['clientMessageId']) ? $parsed_content['clientMessageId'] : NULL);
+        $Response = new WebSmsCom_Response($response_data['content'], $parsed_content['statusCode'], $parsed_content['statusMessage'], $parsed_content['transferId'], isset($parsed_content['clientMessageId']) ? $parsed_content['clientMessageId'] : NULL, isset($parsed_content['smsCount']) ? $parsed_content['smsCount'] : NULL);
         
         return $Response;
     }
@@ -813,13 +813,15 @@ class WebSmsCom_Response {
     private $statusMessage;
     private $transferId;
     private $clientMessageId;
+    private $smsCount;
     
-    function __construct($raw_content, $statusCode, $statusMessage, $transferId, $clientMessageId) {
+    function __construct($raw_content, $statusCode, $statusMessage, $transferId, $clientMessageId, $smsCount) {
         $this->rawContent       = $raw_content;
         $this->statusCode        = $statusCode;
         $this->statusMessage     = $statusMessage;
         $this->transferId        = $transferId;
         $this->clientMessageId  = $clientMessageId;
+        $this->smsCount         = $smsCount;
     }
     
     //----------------------------------------------------------------
@@ -857,6 +859,14 @@ class WebSmsCom_Response {
     //----------------------------------------------------------------
     function getClientMessageId() {
         return $this->clientMessageId;
+    }
+
+    //----------------------------------------------------------------
+    //  getSmsCount()
+    //   - returns received smsCount of API Response for successfully sent Message
+    //----------------------------------------------------------------
+    function getSmsCount() {
+        return $this->smsCount;
     }
 }
 
